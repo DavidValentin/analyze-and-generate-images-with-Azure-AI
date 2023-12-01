@@ -16,8 +16,8 @@ function App() {
   // Función para manejar el clic en el botón y llamar a la función de análisis de imagen
   const handleButtonClick = () => {
     // setLoading(true);
-    const VISION_ENDPOINT = "https://azure-vision-react.cognitiveservices.azure.com/"
-    const VISION_KEY = "3b5d3672ee88489ea39c0a2d0eac9863"
+    const VISION_ENDPOINT = process.env.VISION_ENDPOINT;
+    const VISION_KEY = process.env.VISION_KEY;
 
     const validationError = validateCredentials(VISION_ENDPOINT, VISION_KEY);
 
