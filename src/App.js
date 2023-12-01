@@ -2,30 +2,25 @@ import React, { useState } from 'react';
 import useImageAnalysis from './azure-image-analysis';
 import { validateCredentials } from './azure-image-analysis';
 
-
 function App() {
-  // Estado para almacenar el valor del input
   const [inputValue, setInputValue] = useState('');
   const { analyzeImage, loading } = useImageAnalysis();
 
-  // Función para manejar cambios en el input
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // Función para manejar el clic en el botón y llamar a la función de análisis de imagen
   const handleButtonClick = () => {
     // setLoading(true);
-    const VISION_ENDPOINT = process.env.VISION_ENDPOINT;
-    const VISION_KEY = process.env.VISION_KEY;
+    // Variables de entorno
+    const VISION_ENDPOINT = process.env.REACT_APP_VISION_ENDPOINT;
+    const VISION_KEY = process.env.REACT_APP_VISION_KEY;
 
     const validationError = validateCredentials(VISION_ENDPOINT, VISION_KEY);
 
     if (validationError) {
-      // Mostrar un mensaje de error en la GUI
       const errorElement = document.createElement("h1");
       errorElement.innerHTML = `Error XD: ${validationError}`;
-
       const resultElement = document.getElementById("imageAnalysisResult");
       resultElement.innerHTML = ''; // Limpiar contenido existente
       resultElement.appendChild(errorElement);
@@ -43,7 +38,7 @@ function App() {
         placeholder="Enter URL to analyze or textual prompt to generate an image"
         className="input-custom-width"
         value={inputValue}
-        onChange={handleInputChange} // Asignar el manejador de cambio
+        onChange={handleInputChange}
       />
       <br></br>
       <button onClick={handleButtonClick}>Analyze image</button>  
